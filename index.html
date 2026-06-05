@@ -70,22 +70,26 @@ function agregarEquipo(e) {
   <option value="6">6</option>
 </select>
     <script>
-function crearDots(startX, y, cantidad, espaciado = 23, tamaño = 15) {
+let dotId = 0;
+function crearDots(startX, y, cantidad, espaciado = 21, tamaño = 15) {
   for (let i = 0; i < cantidad; i++) {
     const x = startX + i * espaciado;
     const wrap = document.createElement("div");
     wrap.style.cssText = `position:absolute; left:${x - tamaño/2}px; top:${y - tamaño/2}px; width:${tamaño}px; height:${tamaño}px;`;
     const cb = document.createElement("input");
     cb.type = "checkbox";
-    cb.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; opacity:0; cursor:pointer; margin:0;`;
+    cb.id = "dot" + dotId;
+    cb.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
     const label = document.createElement("label");
-    label.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; border-radius:50%; cursor:pointer; transition:background 0.15s;border:2px solid rgba(65,28,6,0.5);`;
+    label.htmlFor = "dot" + dotId;
+    label.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; border-radius:50%; cursor:pointer; transition:background 0.15s; border:2px solid rgba(65,28,6,0.5);`;
     cb.addEventListener("change", () => {
       label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "transparent";
     });
     wrap.appendChild(cb);
     wrap.appendChild(label);
     document.querySelector(".sheet-wrapper").appendChild(wrap);
+    dotId++;
   }
 }
 
