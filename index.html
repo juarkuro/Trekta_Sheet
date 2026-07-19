@@ -143,7 +143,7 @@ crearDots(738, 305, 5, 60, 30);
 crearDots(738, 353, 5, 60, 30);
 
 //ESENCIA
-crearDots(673, 452, 8, 44, 30);
+crearDots(673, 453, 8, 44, 30);
 
 let rectId = 0;
 function crearRects(startX, y, cantidad, espaciado = 21, ancho = 25, alto = 16) {
@@ -204,6 +204,67 @@ crearTriangulo(202, 1214, true);
 crearTriangulo(126, 1254, false); // fila abajo
 crearTriangulo(163, 1254, false);
 crearTriangulo(202, 1254, false);
+
+//ESCUDOS
+let shieldId = 0;
+function crearEscudo(x, y, tamaño = 50) {
+  const wrap = document.createElement("div");
+  wrap.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${tamaño}px; height:${tamaño * 1.2}px;`;
+
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", "0 0 100 120");
+  svg.style.cssText = `position:absolute; width:100%; height:100%; pointer-events:none;`;
+
+  // Borde exterior
+  const borde = document.createElementNS(svgNS, "path");
+  borde.setAttribute("d", "M50 5 L95 20 L95 70 Q95 100 50 115 Q5 100 5 70 L5 20 Z");
+  borde.setAttribute("fill", "none");
+  borde.setAttribute("stroke", "rgba(65,28,6,0.5)");
+  borde.setAttribute("stroke-width", "5");
+  borde.id = "borde" + shieldId;
+
+  // Relleno interior
+  const relleno = document.createElementNS(svgNS, "path");
+  relleno.setAttribute("d", "M50 5 L95 20 L95 70 Q95 100 50 115 Q5 100 5 70 L5 20 Z");
+  relleno.setAttribute("fill", "transparent");
+  relleno.id = "relleno" + shieldId;
+
+  svg.appendChild(relleno);
+  svg.appendChild(borde);
+  wrap.appendChild(svg);
+
+  // Checkbox BORDE
+  const cbBorde = document.createElement("input");
+  cbBorde.type = "checkbox";
+  cbBorde.id = "shBorde" + shieldId;
+  cbBorde.style.cssText = `position:absolute; width:100%; height:100%; opacity:0; cursor:pointer; margin:0; z-index:3;`;
+  cbBorde.addEventListener("change", () => {
+    borde.setAttribute("stroke", cbBorde.checked ? "rgba(65,28,6,0.9)" : "rgba(65,28,6,0.5)");
+    borde.setAttribute("stroke-width", cbBorde.checked ? "8" : "5");
+  });
+
+  // Checkbox RELLENO (área interior, más pequeña)
+  const cbRelleno = document.createElement("input");
+  cbRelleno.type = "checkbox";
+  cbRelleno.id = "shRelleno" + shieldId;
+  cbRelleno.style.cssText = `position:absolute; left:20%; top:15%; width:60%; height:70%; opacity:0; cursor:pointer; margin:0; z-index:4;`;
+  cbRelleno.addEventListener("change", () => {
+    relleno.setAttribute("fill", cbRelleno.checked ? "rgba(65,28,6,0.7)" : "transparent");
+  });
+
+  wrap.appendChild(cbBorde);
+  wrap.appendChild(cbRelleno);
+  document.querySelector(".sheet-wrapper").appendChild(wrap);
+  shieldId++;
+}
+
+// BLOQUEOS - 5 escudos
+crearEscudo(645, 560);
+crearEscudo(700, 560);
+crearEscudo(755, 560);
+crearEscudo(810, 560);
+crearEscudo(855, 555);
 
 </script>
     
