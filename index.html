@@ -136,6 +136,32 @@ crearDots(419, 594, 5);
 //APARIENCIA
 crearDots(406, 618, 5);
 
+let rectId = 0;
+function crearRects(startX, y, cantidad, espaciado = 21, ancho = 18, alto = 18) {
+  for (let i = 0; i < cantidad; i++) {
+    const x = startX + i * (ancho + espaciado);
+    const wrap = document.createElement("div");
+    wrap.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${ancho}px; height:${alto}px;`;
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.id = "rect" + rectId;
+    cb.style.cssText = `position:absolute; width:${ancho}px; height:${alto}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
+    const label = document.createElement("label");
+    label.htmlFor = "rect" + rectId;
+    label.style.cssText = `position:absolute; width:${ancho}px; height:${alto}px; border:2px solid rgba(65,28,6,0.5); cursor:pointer; transition:background 0.15s;`;
+    cb.addEventListener("change", () => {
+      label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "transparent";
+    });
+    wrap.appendChild(cb);
+    wrap.appendChild(label);
+    document.querySelector(".sheet-wrapper").appendChild(wrap);
+    rectId++;
+  }
+}
+
+// SOBRESFUERZO
+crearRects(196, 762, 3, 5);
+
 let triId = 0;
 function crearTriangulo(x, y, apuntaArriba, tamaño = 27) {
   const wrap = document.createElement("div");
@@ -163,12 +189,12 @@ function crearTriangulo(x, y, apuntaArriba, tamaño = 27) {
 
 // SUERTE - 3x2 tabla (arriba/abajo)
 // Ajusta x e y según posición en tu hoja
-crearTriangulo(125, 1213, true);  // fila arriba
-crearTriangulo(162, 1213, true);
-crearTriangulo(201, 1213, true);
-crearTriangulo(125, 1254, false); // fila abajo
-crearTriangulo(162, 1254, false);
-crearTriangulo(201, 1254, false);
+crearTriangulo(126, 1214, true);  // fila arriba
+crearTriangulo(163, 1214, true);
+crearTriangulo(202, 1214, true);
+crearTriangulo(126, 1254, false); // fila abajo
+crearTriangulo(163, 1254, false);
+crearTriangulo(202, 1254, false);
 
 </script>
     
