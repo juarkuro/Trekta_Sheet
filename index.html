@@ -221,7 +221,7 @@ function crearEscudo(x, y, tamaño = 50) {
   borde.setAttribute("d", "M50 5 L95 20 L95 70 Q95 100 50 115 Q5 100 5 70 L5 20 Z");
   borde.setAttribute("fill", "none");
   borde.setAttribute("stroke", "rgba(65,28,6,0.5)");
-  borde.setAttribute("stroke-width", "5");
+  borde.setAttribute("stroke-width", "10");
   borde.id = "borde" + shieldId;
 
   // Relleno interior
@@ -260,11 +260,12 @@ function crearEscudo(x, y, tamaño = 50) {
 }
 
 // BLOQUEOS - 5 escudos
-crearEscudo(645, 560);
-crearEscudo(700, 560);
-crearEscudo(755, 560);
+crearEscudo(738, 560);
+crearEscudo(800, 560);
 crearEscudo(810, 560);
-crearEscudo(855, 555);
+crearEscudo(840, 560);
+crearEscudo(855, 530, 32);
+crearEscudo(855, 565, 32);
 
 </script>
     
