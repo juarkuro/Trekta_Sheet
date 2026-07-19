@@ -132,10 +132,44 @@ crearDots(416, 539, 5);
 //IMPRESION
 crearDots(401, 569, 5);
 //MANIPULACION
-crearDots(419, 595, 5);
+crearDots(419, 594, 5);
 //APARIENCIA
-crearDots(406, 619, 5);
-      
+crearDots(406, 618, 5);
+
+let triId = 0;
+function crearTriangulo(x, y, apuntaArriba, tamaño = 24) {
+  const wrap = document.createElement("div");
+  wrap.style.cssText = `position:absolute; left:${x - tamaño/2}px; top:${y - tamaño/2}px; width:${tamaño}px; height:${tamaño}px; cursor:pointer;`;
+  
+  const cb = document.createElement("input");
+  cb.type = "checkbox";
+  cb.id = "tri" + triId;
+  cb.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
+  
+  const label = document.createElement("label");
+  label.htmlFor = "tri" + triId;
+  const clip = apuntaArriba ? "polygon(50% 0%, 100% 100%, 0% 100%)" : "polygon(0% 0%, 100% 0%, 50% 100%)";
+  label.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; clip-path:${clip}; background:rgba(65,28,6,0.2); cursor:pointer; transition:background 0.15s;`;
+  
+  cb.addEventListener("change", () => {
+    label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "rgba(65,28,6,0.2)";
+  });
+  
+  wrap.appendChild(cb);
+  wrap.appendChild(label);
+  document.querySelector(".sheet-wrapper").appendChild(wrap);
+  triId++;
+}
+
+// SUERTE - 3x2 tabla (arriba/abajo)
+// Ajusta x e y según posición en tu hoja
+crearTriangulo(120, 1205, true);  // fila arriba
+crearTriangulo(156, 1205, true);
+crearTriangulo(192, 1205, true);
+crearTriangulo(120, 1245, false); // fila abajo
+crearTriangulo(156, 1245, false);
+crearTriangulo(192, 1245, false);
+
 </script>
     
     <select style="position:absolute; left:740px; top:140px; width:240px; height:25px; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:17px; font-family:serif; color:#2a0e00; cursor:pointer; appearance:none;">
