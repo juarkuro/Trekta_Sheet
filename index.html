@@ -137,7 +137,7 @@ crearDots(419, 594, 5);
 crearDots(406, 618, 5);
 
 let rectId = 0;
-function crearRects(startX, y, cantidad, espaciado = 21, ancho = 18, alto = 18) {
+function crearRects(startX, y, cantidad, espaciado = 21, ancho = 25, alto = 16) {
   for (let i = 0; i < cantidad; i++) {
     const x = startX + i * (ancho + espaciado);
     const wrap = document.createElement("div");
@@ -160,7 +160,7 @@ function crearRects(startX, y, cantidad, espaciado = 21, ancho = 18, alto = 18) 
 }
 
 // SOBRESFUERZO
-crearRects(196, 762, 3, 5);
+crearRects(196, 762, 3, 8);
 
 let triId = 0;
 function crearTriangulo(x, y, apuntaArriba, tamaño = 27) {
