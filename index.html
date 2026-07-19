@@ -137,7 +137,7 @@ crearDots(419, 594, 5);
 crearDots(406, 618, 5);
 
 let triId = 0;
-function crearTriangulo(x, y, apuntaArriba, tamaño = 24) {
+function crearTriangulo(x, y, apuntaArriba, tamaño = 27) {
   const wrap = document.createElement("div");
   wrap.style.cssText = `position:absolute; left:${x - tamaño/2}px; top:${y - tamaño/2}px; width:${tamaño}px; height:${tamaño}px; cursor:pointer;`;
   
@@ -163,12 +163,12 @@ function crearTriangulo(x, y, apuntaArriba, tamaño = 24) {
 
 // SUERTE - 3x2 tabla (arriba/abajo)
 // Ajusta x e y según posición en tu hoja
-crearTriangulo(120, 1205, true);  // fila arriba
-crearTriangulo(156, 1205, true);
-crearTriangulo(192, 1205, true);
-crearTriangulo(120, 1245, false); // fila abajo
-crearTriangulo(156, 1245, false);
-crearTriangulo(192, 1245, false);
+crearTriangulo(122, 1225, true);  // fila arriba
+crearTriangulo(158, 1225, true);
+crearTriangulo(194, 1225, true);
+crearTriangulo(122, 1255, false); // fila abajo
+crearTriangulo(158, 1255, false);
+crearTriangulo(194, 1255, false);
 
 </script>
     
