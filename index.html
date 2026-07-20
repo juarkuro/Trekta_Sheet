@@ -250,7 +250,7 @@ borde.setAttribute("stroke-width", cbBorde.checked ? "8" : "5");
   cbRelleno.id = "shRelleno" + shieldId;
   cbRelleno.style.cssText = `position:absolute; left:20%; top:15%; width:60%; height:70%; opacity:0; cursor:pointer; margin:0; z-index:4;`;
   cbRelleno.addEventListener("change", () => {
-    relleno.setAttribute("fill", cbRelleno.checked ? "rgba(65,28,6,0.3)" : "transparent");
+    relleno.setAttribute("fill", cbRelleno.checked ? "rgba(65,28,6,0.5)" : "transparent");
   });
 
   wrap.appendChild(cbBorde);
