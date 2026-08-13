@@ -278,6 +278,13 @@ crearEscudo(943, 570, 38);
   document.querySelectorAll("input[type='checkbox']").forEach((el, i) => {
     datos["check_" + i] = el.checked;
   });
+        // Guardar equipamiento
+const items = [];
+document.querySelectorAll("#equip-lista li span").forEach(span => {
+  items.push(span.textContent.replace("• ", ""));
+});
+datos["equipamiento"] = items;
+        
   const blob = new Blob([JSON.stringify(datos)], {type: "text/plain"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -299,6 +306,23 @@ function importarDatos(event) {
         el.dispatchEvent(new Event("change"));
       }
     });
+    // Restaurar equipamiento
+if (datos["equipamiento"]) {
+  datos["equipamiento"].forEach(texto => {
+    const li = document.createElement("li");
+    li.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;";
+    const span = document.createElement("span");
+    span.textContent = "• " + texto;
+    span.style.cssText = "overflow-wrap:break-word; word-break:break-word; max-width:90%; display:inline-block;";
+    const btn = document.createElement("button");
+    btn.textContent = "✕";
+    btn.style.cssText = "background:none; border:none; color:#8b3a0a; cursor:pointer; font-size:12px; padding:0 4px;";
+    btn.onclick = () => li.remove();
+    li.appendChild(span);
+    li.appendChild(btn);
+    document.getElementById("equip-lista").appendChild(li);
+  });
+}
   };
   reader.readAsText(file);
 }
