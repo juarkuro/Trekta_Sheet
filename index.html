@@ -267,6 +267,42 @@ crearEscudo(870, 530);
 crearEscudo(943, 510, 38);
 crearEscudo(943, 570, 38);
 
+// Botones importar y exportar
+      function exportarDatos() {
+  const datos = {};
+  // Campos de texto
+  document.querySelectorAll("input[type='text'], input[type='number'], textarea, select").forEach((el, i) => {
+    datos["campo_" + i] = el.value;
+  });
+  // Checkboxes (dots, triangulos, rects, escudos)
+  document.querySelectorAll("input[type='checkbox']").forEach((el, i) => {
+    datos["check_" + i] = el.checked;
+  });
+  const blob = new Blob([JSON.stringify(datos)], {type: "text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "trekta_personaje.txt";
+  a.click();
+}
+
+function importarDatos(event) {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const datos = JSON.parse(e.target.result);
+    document.querySelectorAll("input[type='text'], input[type='number'], textarea, select").forEach((el, i) => {
+      if (datos["campo_" + i] !== undefined) el.value = datos["campo_" + i];
+    });
+    document.querySelectorAll("input[type='checkbox']").forEach((el, i) => {
+      if (datos["check_" + i] !== undefined) {
+        el.checked = datos["check_" + i];
+        el.dispatchEvent(new Event("change"));
+      }
+    });
+  };
+  reader.readAsText(file);
+}
+      
 </script>
     
     <select style="position:absolute; left:740px; top:140px; width:240px; height:25px; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:17px; font-family:serif; color:#2a0e00; cursor:pointer; appearance:none;">
