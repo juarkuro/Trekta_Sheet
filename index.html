@@ -100,7 +100,7 @@
     <input type="number" placeholder="0" style="position:absolute; left:480px; top:1160px; width:85px; height:35px; background:transparent; border:none; outline:none; font-size:25px; font-family:serif; color:#2a0e00; text-align:center;">
     <input type="number" placeholder="0" style="position:absolute; left:480px; top:1230px; width:85px; height:35px; background:transparent; border:none; outline:none; font-size:25px; font-family:serif; color:#2a0e00; text-align:center;">
 
-<div style="position:fixed; bottom:20px; right:20px; display:flex; gap:8px; z-index:1000; transform:scale(1); transform-origin:bottom right;">
+<div class="botones-fixed" style="position:fixed; bottom:20px; right:20px; display:flex; gap:8px; z-index:1000; transform-origin:bottom right;">
   <button onclick="exportarDatos()" style="background:rgba(65,28,6,0.85); color:#f5e6c8; border:none; padding:8px 14px; font-family:serif; font-size:13px; cursor:pointer; border-radius:4px;">⬇ Export</button>
   <label style="background:rgba(65,28,6,0.85); color:#f5e6c8; border:none; padding:8px 14px; font-family:serif; font-size:13px; cursor:pointer; border-radius:4px;">
     ⬆ Import
@@ -119,6 +119,15 @@ function ajustarLayout() {
 }
 ajustarLayout();
 window.addEventListener("resize", ajustarLayout);
+
+     // ===== POSITION FIXED =====
+    function ajustarBotones() {
+  const escala = 1 / (window.devicePixelRatio || 1);
+  const botones = document.querySelector(".botones-fixed");
+  botones.style.transform = `scale(${escala})`;
+}
+ajustarBotones();
+window.addEventListener("resize", ajustarBotones);
     
     // ===== INVENTARIO =====
     let inventario = {};
