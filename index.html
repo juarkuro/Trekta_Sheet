@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trekta - Hoja de Personaje</title>
   <style>
     body {
@@ -10,13 +10,16 @@
       background: #1a1008;
       display: flex;
       justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      overflow: auto;
     }
 
     .sheet-wrapper {
       position: relative;
       width: 1131px;
       height: 1600px;
-      transform-origin: top center;
+      flex-shrink: 0;
     }
 
     .sheet-bg {
@@ -108,16 +111,6 @@
   </div>
 
   <script>
-    // ===== ESCALA RESPONSIVE =====
-    function ajustarEscala() {
-      const wrapper = document.querySelector(".sheet-wrapper");
-      const escala = Math.min(window.innerWidth / 1131, 1);
-      wrapper.style.transform = `scale(${escala})`;
-      wrapper.style.marginBottom = `${(1600 * escala) - 1600}px`;
-    }
-    ajustarEscala();
-    window.addEventListener("resize", ajustarEscala);
-
     // ===== INVENTARIO =====
     let inventario = {};
 
