@@ -11,44 +11,30 @@
       justify-content: center;
     }
 
-  .sheet-wrapper {
-  position: relative;
-  width: 1131px;
-  height: 1600px;
-  transform-origin: top center;
-}
+    .sheet-wrapper {
+      position: relative;
+      width: 1131px;
+      height: 1600px;
+      transform-origin: top center;
+    }
 
     .sheet-bg {
       width: 100%;
       height: 100%;
     }
+
     @media (max-width: 1200px) {
-  .sheet-wrapper {
-    transform: scale(0.9);
-    margin-bottom: -160px;
-  }
-}
-
-@media (max-width: 1000px) {
-  .sheet-wrapper {
-    transform: scale(0.75);
-    margin-bottom: -400px;
-  }
-}
-
-@media (max-width: 768px) {
-  .sheet-wrapper {
-    transform: scale(0.55);
-    margin-bottom: -720px;
-  }
-}
-
-@media (max-width: 480px) {
-  .sheet-wrapper {
-    transform: scale(0.35);
-    margin-bottom: -1040px;
-  }
-}
+      .sheet-wrapper { transform: scale(0.9); margin-bottom: -160px; }
+    }
+    @media (max-width: 1000px) {
+      .sheet-wrapper { transform: scale(0.75); margin-bottom: -400px; }
+    }
+    @media (max-width: 768px) {
+      .sheet-wrapper { transform: scale(0.55); margin-bottom: -720px; }
+    }
+    @media (max-width: 480px) {
+      .sheet-wrapper { transform: scale(0.35); margin-bottom: -1040px; }
+    }
   </style>
 </head>
 <body>
@@ -57,366 +43,327 @@
     <input type="text" placeholder="" style="position:absolute; left:108px; top:285px; width:460px; height:33px; background:transparent; border:none; outline:none; font-size:24px; font-family:serif; color:#2a0e00;">
     <input type="text" style="position:absolute; left:108px; top:345px; width:155px; height:32px; background:transparent; border:none; outline:none; font-size:25px; font-family:serif; color:#2a0e00;">
     <textarea style="position:absolute; left:108px; top:1335px; width:393px; height:150px; background:transparent; border:none; outline:none; font-size:18px; font-family:serif; color:#2a0e00; resize:none;"></textarea>
-<div style="position:absolute; left:660px; top:662px; width:360px; height:815px; overflow-y:auto;overflow-x:hidden;">
-  <input id="equip-input" type="text" placeholder="Agregar item..." onkeydown="agregarEquipo(event)" style="width:100%; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:16px; font-family:serif; color:#2a0e00; padding:4px;">
-  <ul id="equip-lista" style="list-style:none; padding-left:10px; margin-top:8px; font-family:serif; font-size:14px; color:#2a0e00;"></ul>
-</div>
 
-<script>
-function agregarEquipo(e) {
-  if (e.key === "Enter") {
-    const input = document.getElementById("equip-input");
-    const texto = input.value.trim();
-    if (texto !== "") {
-      const li = document.createElement("li");
-      /* NUEVO: estilo del item con botón al lado */
-      li.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;";
-      /* NUEVO: el texto del item */
-      const span = document.createElement("span");
-      span.textContent = "• " + texto;
-      span.style.cssText = "overflow-wrap:break-word; word-break:break-word; max-width:90%; display:inline-block;";
-      /* NUEVO: botón de borrar */
-      const btn = document.createElement("button");
-      btn.textContent = "✕";
-      btn.style.cssText = "background:none; border:none; color:#8b3a0a; cursor:pointer; font-size:12px; padding:0 4px;";
-      btn.onclick = () => li.remove(); /* NUEVO: al hacer clic borra el item */
-      li.appendChild(span);
-      li.appendChild(btn);
-      document.getElementById("equip-lista").appendChild(li);
-      input.value = "";
-    }
-  }
-}
-</script>
+    <div style="position:absolute; left:660px; top:662px; width:360px; height:815px; overflow-y:auto; overflow-x:hidden;">
+      <input id="equip-input" type="text" placeholder="Agregar item..." onkeydown="agregarEquipo(event)" style="width:100%; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:16px; font-family:serif; color:#2a0e00; padding:4px;">
+      <ul id="equip-lista" style="list-style:none; padding-left:10px; margin-top:8px; font-family:serif; font-size:14px; color:#2a0e00;"></ul>
+    </div>
+
     <select style="position:absolute; left:260px; top:1210px; width:130px; height:42px; background:transparent; border:none; outline:none; font-size:30px; font-family:serif; color:#2a0e00; cursor:pointer;">
-  <option value="0">0</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-  <option value="6">6</option>
-</select>
-    <script>
-let dotId = 0;
-function crearDots(startX, y, cantidad, espaciado = 21, tamaño = 15) {
-  for (let i = 0; i < cantidad; i++) {
-    const x = startX + i * espaciado;
-    const wrap = document.createElement("div");
-    wrap.style.cssText = `position:absolute; left:${x - tamaño/2}px; top:${y - tamaño/2}px; width:${tamaño}px; height:${tamaño}px;`;
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.id = "dot" + dotId;
-    cb.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
-    const label = document.createElement("label");
-    label.htmlFor = "dot" + dotId;
-    label.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; border-radius:50%; cursor:pointer; transition:background 0.15s; border:2px solid rgba(65,28,6,0.5);`;
-    cb.addEventListener("change", () => {
-      label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "transparent";
-    });
-    wrap.appendChild(cb);
-    wrap.appendChild(label);
-    document.querySelector(".sheet-wrapper").appendChild(wrap);
-    dotId++;
-  }
-}
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
 
-// FUERZA
-crearDots(178, 540, 5);
-// COMBATE
-crearDots(170, 568, 5);
-//COMBATE ARMADO
-crearDots(216, 593, 5);
-//DESTREZA
-crearDots(193, 629, 5);
-//AGILIDAD
-crearDots(165, 655, 5);
-//RAPIDEZ
-crearDots(165, 680, 5);
-//RESISTENCIA
-crearDots(218, 713, 5);
-//DUREZA
-crearDots(157, 742, 5);
-//INTELIGENCIA
-crearDots(225, 868, 5);
-//COMPRENSION
-crearDots(194, 895, 5);
-//PREPARACION
-crearDots(190, 919, 5);
-//PERCEPCION
-crearDots(220, 954, 5);
-//INVESTIGACION
-crearDots(196, 985, 5);
-//ALERTA
-crearDots(155, 1008, 5);
-//ASTUCIA
-crearDots(185, 1044, 5);
-//SIGILO
-crearDots(154, 1070, 5);
-//FINURA
-crearDots(155, 1095, 5);
-//CARISMA
-crearDots(416, 536, 5);
-//IMPRESION
-crearDots(401, 565, 5);
-//MANIPULACION
-crearDots(419, 593, 5);
-//APARIENCIA
-crearDots(406, 617, 5);
-
-// ENFOQUE - 5 columnas x 4 filas
-crearDots(738, 208, 5, 60, 30);
-crearDots(738, 256, 5, 60, 30);
-crearDots(738, 305, 5, 60, 30);
-crearDots(738, 353, 5, 60, 30);
-
-//ESENCIA
-crearDots(673, 453, 8, 44, 30);
-
-let rectId = 0;
-function crearRects(startX, y, cantidad, espaciado = 21, ancho = 25, alto = 16) {
-  for (let i = 0; i < cantidad; i++) {
-    const x = startX + i * (ancho + espaciado);
-    const wrap = document.createElement("div");
-    wrap.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${ancho}px; height:${alto}px;`;
-    const cb = document.createElement("input");
-    cb.type = "checkbox";
-    cb.id = "rect" + rectId;
-    cb.style.cssText = `position:absolute; width:${ancho}px; height:${alto}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
-    const label = document.createElement("label");
-    label.htmlFor = "rect" + rectId;
-    label.style.cssText = `position:absolute; width:${ancho}px; height:${alto}px; border:2px solid rgba(65,28,6,0.5); cursor:pointer; transition:background 0.15s;`;
-    cb.addEventListener("change", () => {
-      label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "transparent";
-    });
-    wrap.appendChild(cb);
-    wrap.appendChild(label);
-    document.querySelector(".sheet-wrapper").appendChild(wrap);
-    rectId++;
-  }
-}
-
-// SOBRESFUERZO
-crearRects(196, 762, 3, 8);
-
-let triId = 0;
-function crearTriangulo(x, y, apuntaArriba, tamaño = 27) {
-  const wrap = document.createElement("div");
-  wrap.style.cssText = `position:absolute; left:${x - tamaño/2}px; top:${y - tamaño/2}px; width:${tamaño}px; height:${tamaño}px; cursor:pointer;`;
-  
-  const cb = document.createElement("input");
-  cb.type = "checkbox";
-  cb.id = "tri" + triId;
-  cb.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
-  
-  const label = document.createElement("label");
-  label.htmlFor = "tri" + triId;
-  const clip = apuntaArriba ? "polygon(50% 0%, 100% 100%, 0% 100%)" : "polygon(0% 0%, 100% 0%, 50% 100%)";
-  label.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; clip-path:${clip}; background:rgba(65,28,6,0.2); cursor:pointer; transition:background 0.15s;`;
-  
-  cb.addEventListener("change", () => {
-    label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "rgba(65,28,6,0.2)";
-  });
-  
-  wrap.appendChild(cb);
-  wrap.appendChild(label);
-  document.querySelector(".sheet-wrapper").appendChild(wrap);
-  triId++;
-}
-
-// SUERTE - 3x2 tabla (arriba/abajo)
-// Ajusta x e y según posición en tu hoja
-crearTriangulo(126, 1214, true);  // fila arriba
-crearTriangulo(163, 1214, true);
-crearTriangulo(202, 1214, true);
-crearTriangulo(126, 1254, false); // fila abajo
-crearTriangulo(163, 1254, false);
-crearTriangulo(202, 1254, false);
-
-//ESCUDOS
-let shieldId = 0;
-function crearEscudo(x, y, tamaño = 50) {
-  const wrap = document.createElement("div");
-  wrap.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${tamaño}px; height:${tamaño * 1.2}px;`;
-
-  const svgNS = "http://www.w3.org/2000/svg";
-  const svg = document.createElementNS(svgNS, "svg");
-  svg.setAttribute("viewBox", "0 0 100 120");
-  svg.style.cssText = `position:absolute; width:100%; height:100%; pointer-events:none;`;
-
-  // Borde exterior
-  const borde = document.createElementNS(svgNS, "path");
-  borde.setAttribute("d", "M50 5 L95 20 L95 70 Q95 100 50 115 Q5 100 5 70 L5 20 Z");
-  borde.setAttribute("fill", "none");
-  borde.setAttribute("stroke", "rgba(65,28,6,0.5)");
-  borde.setAttribute("stroke-width", "10");
-  borde.id = "borde" + shieldId;
-
-  // Relleno interior
-  const relleno = document.createElementNS(svgNS, "path");
-  relleno.setAttribute("d", "M50 5 L95 20 L95 70 Q95 100 50 115 Q5 100 5 70 L5 20 Z");
-  relleno.setAttribute("fill", "transparent");
-  relleno.id = "relleno" + shieldId;
-
-  svg.appendChild(relleno);
-  svg.appendChild(borde);
-  wrap.appendChild(svg);
-
-  // Checkbox BORDE
-  const cbBorde = document.createElement("input");
-  cbBorde.type = "checkbox";
-  cbBorde.id = "shBorde" + shieldId;
-  cbBorde.style.cssText = `position:absolute; width:100%; height:100%; opacity:0; cursor:pointer; margin:0; z-index:3;`;
-  cbBorde.addEventListener("change", () => {
-  borde.setAttribute("stroke", cbBorde.checked ? "rgba(100,100,110,1)" : "rgba(180,180,190,0.9)");
-borde.setAttribute("stroke-width", cbBorde.checked ? "8" : "5");
-  });
-
-  // Checkbox RELLENO (área interior, más pequeña)
-  const cbRelleno = document.createElement("input");
-  cbRelleno.type = "checkbox";
-  cbRelleno.id = "shRelleno" + shieldId;
-  cbRelleno.style.cssText = `position:absolute; left:20%; top:15%; width:60%; height:70%; opacity:0; cursor:pointer; margin:0; z-index:4;`;
-  cbRelleno.addEventListener("change", () => {
-    relleno.setAttribute("fill", cbRelleno.checked ? "rgba(65,28,6,0.5)" : "transparent");
-  });
-
-  wrap.appendChild(cbBorde);
-  wrap.appendChild(cbRelleno);
-  document.querySelector(".sheet-wrapper").appendChild(wrap);
-  shieldId++;
-}
-
-// BLOQUEOS - 5 escudos
-crearEscudo(657, 530);
-crearEscudo(728, 530);
-crearEscudo(799, 530);
-crearEscudo(870, 530);
-crearEscudo(943, 510, 38);
-crearEscudo(943, 570, 38);
-
-// Botones importar y exportar
-      function exportarDatos() {
-  const datos = {};
-  // Campos de texto
-  document.querySelectorAll("input[type='text'], input[type='number'], textarea, select").forEach((el, i) => {
-    datos["campo_" + i] = el.value;
-  });
-  // Checkboxes (dots, triangulos, rects, escudos)
-  document.querySelectorAll("input[type='checkbox']").forEach((el, i) => {
-    datos["check_" + i] = el.checked;
-  });
-        // Guardar equipamiento
-const items = [];
-document.querySelectorAll("#equip-lista li span").forEach(span => {
-  items.push(span.textContent.replace("• ", ""));
-});
-datos["equipamiento"] = items;
-        
-  const blob = new Blob([JSON.stringify(datos)], {type: "text/plain"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "trekta_personaje.txt";
-  a.click();
-}
-
-function importarDatos(event) {
-  const file = event.target.files[0];
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const datos = JSON.parse(e.target.result);
-    document.querySelectorAll("input[type='text'], input[type='number'], textarea, select").forEach((el, i) => {
-      if (datos["campo_" + i] !== undefined) el.value = datos["campo_" + i];
-    });
-    document.querySelectorAll("input[type='checkbox']").forEach((el, i) => {
-      if (datos["check_" + i] !== undefined) {
-        el.checked = datos["check_" + i];
-        el.dispatchEvent(new Event("change"));
-      }
-    });
-    // Restaurar equipamiento
-if (datos["equipamiento"]) {
-  datos["equipamiento"].forEach(texto => {
-    const li = document.createElement("li");
-    li.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;";
-    const span = document.createElement("span");
-    span.textContent = "• " + texto;
-    span.style.cssText = "overflow-wrap:break-word; word-break:break-word; max-width:90%; display:inline-block;";
-    const btn = document.createElement("button");
-    btn.textContent = "✕";
-    btn.style.cssText = "background:none; border:none; color:#8b3a0a; cursor:pointer; font-size:12px; padding:0 4px;";
-    btn.onclick = () => li.remove();
-    li.appendChild(span);
-    li.appendChild(btn);
-    document.getElementById("equip-lista").appendChild(li);
-  });
-}
-  };
-  reader.readAsText(file);
-}
-      
-</script>
-    
     <select style="position:absolute; left:740px; top:140px; width:240px; height:25px; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:17px; font-family:serif; color:#2a0e00; cursor:pointer; appearance:none;">
-  <option value="" disabled selected>Seleccione enfoque...</option>
-  <option value="Héroe">Héroe</option>
-  <option value="Rey">Rey</option>
-  <option value="Mago">Mago</option>
-</select>
+      <option value="" disabled selected>Seleccione enfoque...</option>
+      <option value="Héroe">Héroe</option>
+      <option value="Rey">Rey</option>
+      <option value="Mago">Mago</option>
+    </select>
 
     <datalist id="razas">
-  <option value="Humano">
-  <option value="Elfo">
-  <option value="Mediano">
-  <option value="Semi-Elfo">
-  <option value="Enano">
-  <option value="Gobolin">
-  <option value="Semi-Orco">
-  <option value="Ratmeister">
-  <option value="Gaterrimo">
-  <option value="Hushpuppy">
-  <option value="Ala de Hierro">
-  <option value="Croco">
-  <option value="Hewmo">
-  <option value="Phobos">
-  <option value="Drakmetamorfo">
-</datalist>
-<input type="text" list="razas" placeholder="Seleccione raza..." style="position:absolute; left:297px; top:348px; width:253px; height:32px; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:18px; font-family:serif; color:#2a0e00;">
+      <option value="Humano">
+      <option value="Elfo">
+      <option value="Mediano">
+      <option value="Semi-Elfo">
+      <option value="Enano">
+      <option value="Gobolin">
+      <option value="Semi-Orco">
+      <option value="Ratmeister">
+      <option value="Gaterrimo">
+      <option value="Hushpuppy">
+      <option value="Ala de Hierro">
+      <option value="Croco">
+      <option value="Hewmo">
+      <option value="Phobos">
+      <option value="Drakmetamorfo">
+    </datalist>
+    <input type="text" list="razas" placeholder="Seleccione raza..." style="position:absolute; left:297px; top:348px; width:253px; height:32px; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:18px; font-family:serif; color:#2a0e00;">
 
     <datalist id="clases">
-  <option value="Bárbaro">
-  <option value="Bardo">
-  <option value="Brujo">
-  <option value="Caballero">
-  <option value="Cazador">
-  <option value="Clérigo">
-  <option value="Combatiente">
-  <option value="Drakmetamorfo">
-  <option value="Druida">
-  <option value="Especialista">
-  <option value="Hechicero">
-  <option value="Hewmo">
-  <option value="Mago">
-  <option value="Mecánico">
-  <option value="Paladín">
-  <option value="Phobos">
-  <option value="Tanque">
-</datalist>
-<input type="text" list="clases" placeholder="Seleccione clase..." style="position:absolute; left:108px; top:408px; width:440px; height:32px; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:18px; font-family:serif; color:#2a0e00;">
+      <option value="Bárbaro">
+      <option value="Bardo">
+      <option value="Brujo">
+      <option value="Caballero">
+      <option value="Cazador">
+      <option value="Clérigo">
+      <option value="Combatiente">
+      <option value="Drakmetamorfo">
+      <option value="Druida">
+      <option value="Especialista">
+      <option value="Hechicero">
+      <option value="Hewmo">
+      <option value="Mago">
+      <option value="Mecánico">
+      <option value="Paladín">
+      <option value="Phobos">
+      <option value="Tanque">
+    </datalist>
+    <input type="text" list="clases" placeholder="Seleccione clase..." style="position:absolute; left:108px; top:408px; width:440px; height:32px; background:rgba(255,245,220,0.3); border:none; border-bottom:1px solid #8b5e2a; outline:none; font-size:18px; font-family:serif; color:#2a0e00;">
 
-<input type="number" placeholder="0" style="position:absolute; left:480px; top:1160px; width:85px; height:35px; background:transparent; border:none; outline:none; font-size:25px; font-family:serif; color:#2a0e00; text-align:center;">
-    
-<input type="number" placeholder="0" style="position:absolute; left:480px; top:1230px; width:85px; height:35px; background:transparent; border:none; outline:none; font-size:25px; font-family:serif; color:#2a0e00; text-align:center;">
+    <input type="number" placeholder="0" style="position:absolute; left:480px; top:1160px; width:85px; height:35px; background:transparent; border:none; outline:none; font-size:25px; font-family:serif; color:#2a0e00; text-align:center;">
+    <input type="number" placeholder="0" style="position:absolute; left:480px; top:1230px; width:85px; height:35px; background:transparent; border:none; outline:none; font-size:25px; font-family:serif; color:#2a0e00; text-align:center;">
 
     <!-- Botones Export/Import -->
-<div style="position:fixed; bottom:20px; right:20px; display:flex; gap:8px; z-index:1000;">
-  <button onclick="exportarDatos()" style="background:rgba(65,28,6,0.85); color:#f5e6c8; border:none; padding:8px 14px; font-family:serif; font-size:13px; cursor:pointer; border-radius:4px;">⬇ Export</button>
-  <label style="background:rgba(65,28,6,0.85); color:#f5e6c8; border:none; padding:8px 14px; font-family:serif; font-size:13px; cursor:pointer; border-radius:4px;">
-    ⬆ Import
-    <input type="file" accept=".txt" onchange="importarDatos(event)" style="display:none;">
-  </label>
+    <div style="position:fixed; bottom:20px; right:20px; display:flex; gap:8px; z-index:1000;">
+      <button onclick="exportarDatos()" style="background:rgba(65,28,6,0.85); color:#f5e6c8; border:none; padding:8px 14px; font-family:serif; font-size:13px; cursor:pointer; border-radius:4px;">⬇ Export</button>
+      <label style="background:rgba(65,28,6,0.85); color:#f5e6c8; border:none; padding:8px 14px; font-family:serif; font-size:13px; cursor:pointer; border-radius:4px;">
+        ⬆ Import
+        <input type="file" accept=".txt" onchange="importarDatos(event)" style="display:none;">
+      </label>
+    </div>
 
-    
   </div>
+
+  <script>
+    // ===== INVENTARIO =====
+    let inventario = {}; // { nombre: cantidad }
+
+    function renderInventario() {
+      const lista = document.getElementById("equip-lista");
+      lista.innerHTML = "";
+      Object.keys(inventario).sort().forEach(nombre => {
+        const cantidad = inventario[nombre];
+        const li = document.createElement("li");
+        li.style.cssText = "display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;";
+        const span = document.createElement("span");
+        span.textContent = cantidad > 1 ? `• ${nombre} (x${cantidad})` : `• ${nombre}`;
+        span.style.cssText = "overflow-wrap:break-word; word-break:break-word; max-width:85%; display:inline-block;";
+        const btn = document.createElement("button");
+        btn.textContent = "✕";
+        btn.style.cssText = "background:none; border:none; color:#8b3a0a; cursor:pointer; font-size:12px; padding:0 4px;";
+        btn.onclick = () => {
+          if (inventario[nombre] > 1) {
+            inventario[nombre]--;
+          } else {
+            delete inventario[nombre];
+          }
+          renderInventario();
+        };
+        li.appendChild(span);
+        li.appendChild(btn);
+        lista.appendChild(li);
+      });
+    }
+
+    function agregarEquipo(e) {
+      if (e.key === "Enter") {
+        const input = document.getElementById("equip-input");
+        const texto = input.value.trim();
+        if (texto !== "") {
+          const clave = texto.toLowerCase();
+          const nombreReal = Object.keys(inventario).find(k => k.toLowerCase() === clave) || texto;
+          if (inventario[nombreReal]) {
+            inventario[nombreReal]++;
+          } else {
+            inventario[nombreReal] = 1;
+          }
+          renderInventario();
+          input.value = "";
+        }
+      }
+    }
+
+    // ===== DOTS =====
+    let dotId = 0;
+    function crearDots(startX, y, cantidad, espaciado = 21, tamaño = 15) {
+      for (let i = 0; i < cantidad; i++) {
+        const x = startX + i * espaciado;
+        const wrap = document.createElement("div");
+        wrap.style.cssText = `position:absolute; left:${x - tamaño/2}px; top:${y - tamaño/2}px; width:${tamaño}px; height:${tamaño}px;`;
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.id = "dot" + dotId;
+        cb.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
+        const label = document.createElement("label");
+        label.htmlFor = "dot" + dotId;
+        label.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; border-radius:50%; cursor:pointer; transition:background 0.15s; border:2px solid rgba(65,28,6,0.5);`;
+        cb.addEventListener("change", () => {
+          label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "transparent";
+        });
+        wrap.appendChild(cb);
+        wrap.appendChild(label);
+        document.querySelector(".sheet-wrapper").appendChild(wrap);
+        dotId++;
+      }
+    }
+
+    crearDots(178, 540, 5);
+    crearDots(170, 568, 5);
+    crearDots(216, 593, 5);
+    crearDots(193, 629, 5);
+    crearDots(165, 655, 5);
+    crearDots(165, 680, 5);
+    crearDots(218, 713, 5);
+    crearDots(157, 742, 5);
+    crearDots(225, 868, 5);
+    crearDots(194, 895, 5);
+    crearDots(190, 919, 5);
+    crearDots(220, 954, 5);
+    crearDots(196, 985, 5);
+    crearDots(155, 1008, 5);
+    crearDots(185, 1044, 5);
+    crearDots(154, 1070, 5);
+    crearDots(155, 1095, 5);
+    crearDots(416, 536, 5);
+    crearDots(401, 565, 5);
+    crearDots(419, 593, 5);
+    crearDots(406, 617, 5);
+    crearDots(738, 208, 5, 60, 30);
+    crearDots(738, 256, 5, 60, 30);
+    crearDots(738, 305, 5, 60, 30);
+    crearDots(738, 353, 5, 60, 30);
+    crearDots(673, 453, 8, 44, 30);
+
+    // ===== RECTANGULOS =====
+    let rectId = 0;
+    function crearRects(startX, y, cantidad, espaciado = 21, ancho = 25, alto = 16) {
+      for (let i = 0; i < cantidad; i++) {
+        const x = startX + i * (ancho + espaciado);
+        const wrap = document.createElement("div");
+        wrap.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${ancho}px; height:${alto}px;`;
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.id = "rect" + rectId;
+        cb.style.cssText = `position:absolute; width:${ancho}px; height:${alto}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
+        const label = document.createElement("label");
+        label.htmlFor = "rect" + rectId;
+        label.style.cssText = `position:absolute; width:${ancho}px; height:${alto}px; border:2px solid rgba(65,28,6,0.5); cursor:pointer; transition:background 0.15s;`;
+        cb.addEventListener("change", () => {
+          label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "transparent";
+        });
+        wrap.appendChild(cb);
+        wrap.appendChild(label);
+        document.querySelector(".sheet-wrapper").appendChild(wrap);
+        rectId++;
+      }
+    }
+
+    crearRects(196, 762, 3, 8);
+
+    // ===== TRIANGULOS =====
+    let triId = 0;
+    function crearTriangulo(x, y, apuntaArriba, tamaño = 27) {
+      const wrap = document.createElement("div");
+      wrap.style.cssText = `position:absolute; left:${x - tamaño/2}px; top:${y - tamaño/2}px; width:${tamaño}px; height:${tamaño}px; cursor:pointer;`;
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.id = "tri" + triId;
+      cb.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; opacity:0; cursor:pointer; margin:0; z-index:2;`;
+      const label = document.createElement("label");
+      label.htmlFor = "tri" + triId;
+      const clip = apuntaArriba ? "polygon(50% 0%, 100% 100%, 0% 100%)" : "polygon(0% 0%, 100% 0%, 50% 100%)";
+      label.style.cssText = `position:absolute; width:${tamaño}px; height:${tamaño}px; clip-path:${clip}; background:rgba(65,28,6,0.2); cursor:pointer; transition:background 0.15s;`;
+      cb.addEventListener("change", () => {
+        label.style.background = cb.checked ? "rgba(65,28,6,0.85)" : "rgba(65,28,6,0.2)";
+      });
+      wrap.appendChild(cb);
+      wrap.appendChild(label);
+      document.querySelector(".sheet-wrapper").appendChild(wrap);
+      triId++;
+    }
+
+    crearTriangulo(126, 1214, true);
+    crearTriangulo(163, 1214, true);
+    crearTriangulo(202, 1214, true);
+    crearTriangulo(126, 1254, false);
+    crearTriangulo(163, 1254, false);
+    crearTriangulo(202, 1254, false);
+
+    // ===== ESCUDOS =====
+    let shieldId = 0;
+    function crearEscudo(x, y, tamaño = 50) {
+      const wrap = document.createElement("div");
+      wrap.style.cssText = `position:absolute; left:${x}px; top:${y}px; width:${tamaño}px; height:${tamaño * 1.2}px;`;
+      const svgNS = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(svgNS, "svg");
+      svg.setAttribute("viewBox", "0 0 100 120");
+      svg.style.cssText = `position:absolute; width:100%; height:100%; pointer-events:none;`;
+      const borde = document.createElementNS(svgNS, "path");
+      borde.setAttribute("d", "M50 5 L95 20 L95 70 Q95 100 50 115 Q5 100 5 70 L5 20 Z");
+      borde.setAttribute("fill", "none");
+      borde.setAttribute("stroke", "rgba(180,180,190,0.9)");
+      borde.setAttribute("stroke-width", "5");
+      borde.id = "borde" + shieldId;
+      const relleno = document.createElementNS(svgNS, "path");
+      relleno.setAttribute("d", "M50 5 L95 20 L95 70 Q95 100 50 115 Q5 100 5 70 L5 20 Z");
+      relleno.setAttribute("fill", "transparent");
+      relleno.id = "relleno" + shieldId;
+      svg.appendChild(relleno);
+      svg.appendChild(borde);
+      wrap.appendChild(svg);
+      const cbBorde = document.createElement("input");
+      cbBorde.type = "checkbox";
+      cbBorde.id = "shBorde" + shieldId;
+      cbBorde.style.cssText = `position:absolute; width:100%; height:100%; opacity:0; cursor:pointer; margin:0; z-index:3;`;
+      cbBorde.addEventListener("change", () => {
+        borde.setAttribute("stroke", cbBorde.checked ? "rgba(100,100,110,1)" : "rgba(180,180,190,0.9)");
+        borde.setAttribute("stroke-width", cbBorde.checked ? "8" : "5");
+      });
+      const cbRelleno = document.createElement("input");
+      cbRelleno.type = "checkbox";
+      cbRelleno.id = "shRelleno" + shieldId;
+      cbRelleno.style.cssText = `position:absolute; left:20%; top:15%; width:60%; height:70%; opacity:0; cursor:pointer; margin:0; z-index:4;`;
+      cbRelleno.addEventListener("change", () => {
+        relleno.setAttribute("fill", cbRelleno.checked ? "rgba(65,28,6,0.5)" : "transparent");
+      });
+      wrap.appendChild(cbBorde);
+      wrap.appendChild(cbRelleno);
+      document.querySelector(".sheet-wrapper").appendChild(wrap);
+      shieldId++;
+    }
+
+    crearEscudo(657, 530);
+    crearEscudo(728, 530);
+    crearEscudo(799, 530);
+    crearEscudo(870, 530);
+    crearEscudo(943, 510, 38);
+    crearEscudo(943, 570, 38);
+
+    // ===== EXPORTAR / IMPORTAR =====
+    function exportarDatos() {
+      const datos = {};
+      document.querySelectorAll("input[type='text'], input[type='number'], textarea, select").forEach((el, i) => {
+        datos["campo_" + i] = el.value;
+      });
+      document.querySelectorAll("input[type='checkbox']").forEach((el, i) => {
+        datos["check_" + i] = el.checked;
+      });
+      datos["inventario"] = inventario;
+      const blob = new Blob([JSON.stringify(datos)], {type: "text/plain"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "trekta_personaje.txt";
+      a.click();
+    }
+
+    function importarDatos(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const datos = JSON.parse(e.target.result);
+        document.querySelectorAll("input[type='text'], input[type='number'], textarea, select").forEach((el, i) => {
+          if (datos["campo_" + i] !== undefined) el.value = datos["campo_" + i];
+        });
+        document.querySelectorAll("input[type='checkbox']").forEach((el, i) => {
+          if (datos["check_" + i] !== undefined) {
+            el.checked = datos["check_" + i];
+            el.dispatchEvent(new Event("change"));
+          }
+        });
+        if (datos["inventario"]) {
+          inventario = datos["inventario"];
+          renderInventario();
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+
 </body>
 </html>
